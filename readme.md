@@ -1,5 +1,6 @@
 *Files to look at*:
 
+* [Form1.cs](./CS/WinForms-Dashboard-Custom-Properties/Form1.cs) (VB: [Form1.vb](./VB/WinForms-Dashboard-Custom-Properties/Form1.vb))
 * [DashboardDescriptionModule.cs](./CS/WinForms-Dashboard-Custom-Properties/Modules/DashboardDescriptionModule.cs) (VB: [DashboardDescriptionModule.vb](./VB/WinForms-Dashboard-Custom-Properties/Modules/DashboardDescriptionModule.vb))
 * [GridFixedColumnModule.cs](./CS/WinForms-Dashboard-Custom-Properties/Modules/GridFixedColumnModule.cs) (VB: [GridFixedColumnModule.vb](./VB/WinForms-Dashboard-Custom-Properties/Modules/GridFixedColumnModule.vb))
 * [ChartScaleBreakModule.cs](./CS/WinForms-Dashboard-Custom-Properties/Modules/ChartScaleBreakModule.cs) (VB: [ChartScaleBreakModule.vb](./VB/WinForms-Dashboard-Custom-Properties/Modules/ChartScaleBreakModule.vb))
