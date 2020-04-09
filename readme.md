@@ -23,7 +23,7 @@ This module enables you to set a dashboard description. The **Dashboard Descript
 * Shows how to add a new item to the existing Ribbon group.
 
 ## Grid Fixed (Pinned) Columns
-This module enables you to pin columns in the Grid item. The _Fix Columns_ button is located in the _Custom Properties_ Ribbon's group on the Grid's _Design_ page. The button invokes an editor where you can set which columns to pin.
+This module enables you to pin columns in the Grid item. The **Fix Columns** button is located in the _Custom Properties_ Ribbon's group on the Grid's _Design_ page. The button invokes an editor where you can set which columns to pin.
 
 **Overview:**
 * Adds a boolean custom property for a specific data item container (Grid columns).
@@ -31,7 +31,7 @@ This module enables you to pin columns in the Grid item. The _Fix Columns_ butto
 * Shows how to create a new group in the Ribbon and add a new item.
 
 ## Chart Scale Break
-This module enables or disables scale breaks for the Chart dashboard item. The _Scale Break_ button is located in the _Custom Properties_ Ribbon's group on the Chart's _Design_ page.
+This module enables or disables scale breaks for the Chart dashboard item. The **Scale Break** button is located in the _Custom Properties_ Ribbon's group on the Chart's _Design_ page.
 
 **Overview:**
 * Adds a boolean custom property for a specific dashboard item (Chart).
@@ -39,7 +39,7 @@ This module enables or disables scale breaks for the Chart dashboard item. The _
 * Customizes export to display the result in the exported document.
 
 ## Chart Constant Line
-This module allows you to draw a constant line for the selected Chart item. The _Constant Line_ button is located in the _Custom Properties_ ribbon group on the Chart's _Design_ page. The button invokes an editor where you can set a constant line's options.
+This module allows you to draw a constant line for the selected Chart item. The **Constant Line** button is located in the _Custom Properties_ ribbon group on the Chart's _Design_ page. The button invokes an editor where you can set a constant line's options.
 
 **Overview:**
 * Adds a complex custom property for a specific dashboard item (Chart).
