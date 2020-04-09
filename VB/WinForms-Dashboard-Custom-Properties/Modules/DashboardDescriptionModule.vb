@@ -1,5 +1,4 @@
-﻿Imports Microsoft.VisualBasic
-Imports System
+﻿Imports System
 Imports System.Windows.Forms
 Imports DevExpress.DashboardCommon
 Imports DevExpress.DashboardWin
@@ -56,7 +55,14 @@ Namespace LayoutChange.Modules
 			Dim buttonOk As New SimpleButton()
 			buttonOk.Text = "OK"
 			buttonOk.DialogResult = DialogResult.OK
-			AddHandler buttonOk.Click, Function(sender1, e1) AnonymousMethod1(sender1, e1, memoEdit, currentCaption)
+			AddHandler buttonOk.Click, Sub(sender1, e1)
+				Dim modifiedCaption As String = memoEdit.Text
+				If currentCaption <> modifiedCaption Then
+					Dim status As String = If(Not String.IsNullOrEmpty(modifiedCaption), "Remove", "Add")
+					Dim historyItem As New CustomPropertyHistoryItem(designer.Dashboard, PropertyName, modifiedCaption, status & " the dashboard caption")
+					designer.AddToHistory(historyItem)
+				End If
+			End Sub
 			buttonLayoutItem.Control = buttonOk
 			layoutControl.Root.AddItem(New EmptySpaceItem(), buttonLayoutItem, InsertType.Left)
 			Using form As New XtraForm()
@@ -68,29 +74,16 @@ Namespace LayoutChange.Modules
 				form.ShowDialog()
 			End Using
 		End Sub
-		
-		Private Function AnonymousMethod1(ByVal sender1 As Object, ByVal e1 As Object, ByVal memoEdit As MemoEdit, ByVal currentCaption As String) As Boolean
-			Dim modifiedCaption As String = memoEdit.Text
-			If currentCaption <> modifiedCaption Then
-				Dim status As String = If((Not String.IsNullOrEmpty(modifiedCaption)), "Remove", "Add")
-				Dim historyItem As New CustomPropertyHistoryItem(designer.Dashboard, PropertyName, modifiedCaption, status & " the dashboard caption")
-				designer.AddToHistory(historyItem)
-			End If
-			Return True
-		End Function
 		Private Sub Designer_CustomizeDashboardTitle(ByVal sender As Object, ByVal e As CustomizeDashboardTitleEventArgs)
 			Dim text As String = designer.Dashboard.CustomProperties.GetValue(PropertyName)
-			If (Not String.IsNullOrEmpty(text)) Then
-				Dim showDataItem As New DashboardToolbarItem("Description", New Action(Of DashboardToolbarItemClickEventArgs)(Function(args) AnonymousMethod2(args, text)))
+			If Not String.IsNullOrEmpty(text) Then
+				Dim showDataItem As New DashboardToolbarItem("Description", New Action(Of DashboardToolbarItemClickEventArgs)(Sub(args)
+					MessageBox.Show(text, "Description")
+				End Sub))
 				showDataItem.SvgImage = titleDescriptionImage
 				e.Items.Insert(0, showDataItem)
 			End If
 		End Sub
-		
-		Private Function AnonymousMethod2(ByVal args As Object, ByVal text As String) As Boolean
-			MessageBox.Show(text, "Description")
-			Return True
-		End Function
 		Private Sub Designer_DashboardCustomPropertyChanged(ByVal sender As Object, ByVal e As CustomPropertyChangedEventArgs)
 			If e.Name = PropertyName Then
 				designer.UpdateDashboardTitle()

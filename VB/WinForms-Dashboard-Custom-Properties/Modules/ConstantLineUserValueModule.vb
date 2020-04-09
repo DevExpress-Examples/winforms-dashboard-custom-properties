@@ -1,5 +1,4 @@
-﻿Imports Microsoft.VisualBasic
-Imports System
+﻿Imports System
 Imports System.Collections.Generic
 Imports System.Drawing
 Imports System.Linq
@@ -19,33 +18,9 @@ Imports DevExpress.XtraReports.UI
 
 Namespace WindowsFormsAppCustomProperties
 	Public Class ConstantLineUserValueModuleData
-		Private privatePaneName As String
 		Public Property PaneName() As String
-			Get
-				Return privatePaneName
-			End Get
-			Set(ByVal value As String)
-				privatePaneName = value
-			End Set
-		End Property
-		Private privateIsSecondaryAxis As Boolean
 		Public Property IsSecondaryAxis() As Boolean
-			Get
-				Return privateIsSecondaryAxis
-			End Get
-			Set(ByVal value As Boolean)
-				privateIsSecondaryAxis = value
-			End Set
-		End Property
-		Private privateValue As Double
 		Public Property Value() As Double
-			Get
-				Return privateValue
-			End Get
-			Set(ByVal value As Double)
-				privateValue = value
-			End Set
-		End Property
 
 		Public Function GetStringFromData() As String
 			Return PaneName & "_" & IsSecondaryAxis.ToString() & "_" & Value
@@ -115,7 +90,7 @@ Namespace WindowsFormsAppCustomProperties
 				Dim dashboardSeries As ChartSeries = pane.Series.FirstOrDefault(Function(s) s.PlotOnSecondaryAxis = moduleData.IsSecondaryAxis)
 				If dashboardSeries IsNot Nothing Then
 					Dim chartSeries As Series = chartContext.GetControlSeries(dashboardSeries).FirstOrDefault()
-					Dim chartAxis = (TryCast(chartSeries.View, XYDiagramSeriesViewBase))?.AxisY
+					Dim chartAxis = TryCast(chartSeries.View, XYDiagramSeriesViewBase)?.AxisY
 					If chartAxis IsNot Nothing Then
 						Dim line As New ConstantLine() With {.AxisValue = moduleData.Value}
 						chartAxis.ConstantLines.Clear()
@@ -131,23 +106,21 @@ Namespace WindowsFormsAppCustomProperties
 			End If
 		End Sub
 		Private Function GetDataFromString(ByVal customPropertyValue As String) As ConstantLineUserValueModuleData
-			If (Not String.IsNullOrEmpty(customPropertyValue)) Then
+			If Not String.IsNullOrEmpty(customPropertyValue) Then
 				Dim array = customPropertyValue.Split("_"c)
-				Return New ConstantLineUserValueModuleData() With {.PaneName = array(0), .IsSecondaryAxis = Boolean.Parse(array(1)), .Value = Convert.ToDouble(array(2))}
+				Return New ConstantLineUserValueModuleData() With {
+					.PaneName = array(0),
+					.IsSecondaryAxis = Boolean.Parse(array(1)),
+					.Value = Convert.ToDouble(array(2))
+				}
 			End If
 			Return New ConstantLineUserValueModuleData()
 		End Function
 	End Class
 	Public Class ValueSelectorControl
 		Inherits XtraUserControl
-		Private privateConstantLineModuleData As ConstantLineUserValueModuleData
-		Public Property ConstantLineModuleData() As ConstantLineUserValueModuleData
-			Get
-				Return privateConstantLineModuleData
-			End Get
-			Set(value As ConstantLineUserValueModuleData)
-			End Set
-		End Property
+
+		Public ReadOnly Property ConstantLineModuleData() As ConstantLineUserValueModuleData
 
 		Public Sub New(ByVal paneNames As List(Of String))
 			Dim dataLayoutControl As New DataLayoutControl()
@@ -155,28 +128,22 @@ Namespace WindowsFormsAppCustomProperties
 			ConstantLineModuleData = New ConstantLineUserValueModuleData()
 			source.DataSource = ConstantLineModuleData
 			dataLayoutControl.DataSource = source
-			AddHandler dataLayoutControl.FieldRetrieving, Function(s, e) AnonymousMethod1(s, e)
-			AddHandler dataLayoutControl.FieldRetrieved, Function(s, e) AnonymousMethod2(s, e, paneNames)
+			AddHandler dataLayoutControl.FieldRetrieving, Sub(s, e)
+				If e.FieldName = NameOf(ConstantLineModuleData.PaneName) Then
+					e.EditorType = GetType(LookUpEdit)
+					e.Handled = True
+				End If
+			End Sub
+			AddHandler dataLayoutControl.FieldRetrieved, Sub(s, e)
+				If e.FieldName = NameOf(ConstantLineModuleData.PaneName) Then
+					InitRepositoryItem(e.RepositoryItem, paneNames)
+				End If
+			End Sub
 			dataLayoutControl.RetrieveFields()
 			dataLayoutControl.Dock = DockStyle.Fill
 			Controls.Add(dataLayoutControl)
 			Dock = DockStyle.Top
 		End Sub
-		
-		Private Function AnonymousMethod1(ByVal s As Object, ByVal e As Object) As Boolean
-			If e.FieldName Is NameOf(ConstantLineModuleData.PaneName) Then
-				e.EditorType = GetType(LookUpEdit)
-				e.Handled = True
-			End If
-			Return True
-		End Function
-		
-		Private Function AnonymousMethod2(ByVal s As Object, ByVal e As Object, ByVal paneNames As List(Of String)) As Boolean
-			If e.FieldName Is NameOf(ConstantLineModuleData.PaneName) Then
-				InitRepositoryItem(e.RepositoryItem, paneNames)
-			End If
-			Return True
-		End Function
 		Private Sub InitRepositoryItem(Of T)(ByVal ri As RepositoryItem, ByVal list As List(Of T))
 			Dim lookUpEdit = TryCast(ri, RepositoryItemLookUpEdit)
 			lookUpEdit.TextEditStyle = TextEditStyles.DisableTextEditor

@@ -1,5 +1,4 @@
-﻿Imports Microsoft.VisualBasic
-Imports System
+﻿Imports System
 Imports System.Collections.Generic
 Imports System.Linq
 Imports System.Windows.Forms
@@ -42,7 +41,7 @@ Namespace WindowsFormsAppCustomProperties
 				gridItem.GridOptions.ColumnWidthMode = GridColumnWidthMode.AutoFitToContents
 				For Each itemColumn As GridColumnBase In gridItem.Columns
 					Dim customProperty As String = itemColumn.CustomProperties.GetValue(PropertyName)
-					If (Not String.IsNullOrEmpty(customProperty)) Then
+					If Not String.IsNullOrEmpty(customProperty) Then
 						Dim gridColumn As GridColumn = e.GridContext.GetControlColumn(itemColumn)
 						If gridColumn IsNot Nothing Then
 							Dim fixedWidthEnabled As Boolean = Convert.ToBoolean(itemColumn.CustomProperties.GetValue(PropertyName))
@@ -54,7 +53,10 @@ Namespace WindowsFormsAppCustomProperties
 		End Sub
 		Private Sub ChangeCustomPropertyValue(ByVal sender As Object, ByVal e As ItemClickEventArgs)
 			Dim gridItem As GridDashboardItem = TryCast(designer.SelectedDashboardItem, GridDashboardItem)
-			Dim checkedColumnsList As List(Of CheckedComboBoxItem) = gridItem.Columns.Select(Function(x) New CheckedComboBoxItem() With {.Column = x, .Checked = Convert.ToBoolean(x.CustomProperties.GetValue(PropertyName))}).ToList()
+			Dim checkedColumnsList As List(Of CheckedComboBoxItem) = gridItem.Columns.Select(Function(x) New CheckedComboBoxItem() With {
+				.Column = x,
+				.Checked = Convert.ToBoolean(x.CustomProperties.GetValue(PropertyName))
+			}).ToList()
 			Dim control As New ColumnSelectorControl(checkedColumnsList)
 			If XtraDialog.Show(control, "Select columns to fix:") = DialogResult.OK Then
 				For Each item In checkedColumnsList
@@ -68,24 +70,8 @@ Namespace WindowsFormsAppCustomProperties
 		End Sub
 	End Class
 	Public Class CheckedComboBoxItem
-		Private privateColumn As GridColumnBase
 		Public Property Column() As GridColumnBase
-			Get
-				Return privateColumn
-			End Get
-			Set(ByVal value As GridColumnBase)
-				privateColumn = value
-			End Set
-		End Property
-		Private privateChecked As Boolean
 		Public Property Checked() As Boolean
-			Get
-				Return privateChecked
-			End Get
-			Set(ByVal value As Boolean)
-				privateChecked = value
-			End Set
-		End Property
 
 		Public Overrides Function ToString() As String
 			Return Column.GetDisplayName()
@@ -93,6 +79,7 @@ Namespace WindowsFormsAppCustomProperties
 	End Class
 	Public Class ColumnSelectorControl
 		Inherits XtraUserControl
+
 		Private checkedCombo As New CheckedListBoxControl()
 
 		Public Sub New(ByVal gridColumns As List(Of CheckedComboBoxItem))
