@@ -47,8 +47,11 @@ This module allows you to draw a constant line for the selected Chart item. The 
 * Shows how to create a new group in the Ribbon and add a new item.
 * Customizes export to display the result in the exported document.
 
-## See Also
+## Documentation
 
-- [Documentation: Custom Properties](https://docs.devexpress.com/Dashboard/401595/designer-and-viewer-applications/winforms-designer/custom-properties?v=20.1)
-- [Example: Custom Properties for ASP.NET MVC Dashboard Control](https://github.com/DevExpress-Examples/asp-net-mvc-dashboard-custom-properties-sample)
-- [Example: Custom Properties for WPF Dashboard Viewer](https://github.com/DevExpress-Examples/wpf-dashboard-custom-properties)
+- [WinForms Designer - Custom Properties](https://docs.devexpress.com/Dashboard/401595/designer-and-viewer-applications/winforms-designer/custom-properties?v=20.1)
+
+## More Examples
+- [ASP.NET MVC Dashboard Control - Custom Properties](https://github.com/DevExpress-Examples/asp-net-mvc-dashboard-custom-properties-sample)
+- [WPF Dashboard Viewer - Custom Properties](https://github.com/DevExpress-Examples/wpf-dashboard-custom-properties)
+- [Multiplatform Example - Constant Lines](https://github.com/DevExpress-Examples/dashboard-constant-lines)
