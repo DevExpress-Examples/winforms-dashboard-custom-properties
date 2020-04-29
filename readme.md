@@ -49,4 +49,6 @@ This module allows you to draw a constant line for the selected Chart item. The 
 
 ## See Also
 
-- [Custom Properties](https://docs.devexpress.com/Dashboard/401595/designer-and-viewer-applications/winforms-designer/custom-properties?v=20.1)
+- [Documentation: Custom Properties](https://docs.devexpress.com/Dashboard/401595/designer-and-viewer-applications/winforms-designer/custom-properties?v=20.1)
+- [Example: Custom Properties for WPF Dashboard](https://github.com/DevExpress-Examples/wpf-dashboard-custom-properties)
+- [Example: Custom Properties for ASP.NET MVC Dashboard](https://github.com/DevExpress-Examples/asp-net-mvc-dashboard-custom-properties-sample)
