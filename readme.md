@@ -40,7 +40,7 @@ This module enables or disables scale breaks for the Chart dashboard item. The *
 * Customizes export to display the result in the exported document.
 
 ## Chart Constant Line
-This module allows you to draw a constant line for the selected Chart item. The **Constant Line** button is in the _Custom Properties_ ribbon group on the Chart's _Design_ page. The button invokes an editor that allows you to set a constant line's options.
+This module allows you to draw a constant line for the selected Chart item. The **Constant Line** button is in the _Custom Properties_ ribbon group on the Chart's _Design_ page. The button invokes an editor that allows you to set constant line's options.
 
 **Overview:**
 * Adds a complex custom property for a specific dashboard item (Chart).
