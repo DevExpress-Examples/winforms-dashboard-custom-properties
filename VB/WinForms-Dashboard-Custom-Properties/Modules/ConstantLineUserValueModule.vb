@@ -70,17 +70,20 @@ Namespace WindowsFormsAppCustomProperties
 			Dim controls As Dictionary(Of String, XRControl) = e.GetPrintableControls()
 			For Each control In controls
 				Dim xrChart As XRChart = TryCast(control.Value, XRChart)
-				If xrChart IsNot Nothing Then
-					Dim itemComponentName As String = control.Key
-					Dim chart As ChartDashboardItem = TryCast(designer.Dashboard.Items(itemComponentName), ChartDashboardItem)
+				Dim itemComponentName As String = control.Key
+				Dim chartDashboardItem = TryCast(designer.Dashboard.Items(itemComponentName), ChartDashboardItem)
+
+				If xrChart IsNot Nothing AndAlso chartDashboardItem IsNot Nothing Then
 					Dim chartContext As ChartContext = e.GetChartContext(itemComponentName)
-					UpdateChart(chart, chartContext)
+					UpdateChart(chartDashboardItem, chartContext)
 				End If
 			Next control
 		End Sub
 		Private Sub Designer_DashboardItemControlUpdated(ByVal sender As Object, ByVal e As DashboardItemControlEventArgs)
-			If e.ChartControl IsNot Nothing Then
-				UpdateChart(TryCast(designer.Dashboard.Items(e.DashboardItemName), ChartDashboardItem), e.ChartContext)
+			Dim chartDashboardItem = TryCast(designer.Dashboard.Items(e.DashboardItemName), ChartDashboardItem)
+
+			If e.ChartControl IsNot Nothing AndAlso chartDashboardItem IsNot Nothing Then
+				UpdateChart(chartDashboardItem, e.ChartContext)
 			End If
 		End Sub
 		Private Sub UpdateChart(ByVal chartDashboardItem As ChartDashboardItem, ByVal chartContext As ChartContext)
@@ -90,7 +93,7 @@ Namespace WindowsFormsAppCustomProperties
 				Dim dashboardSeries As ChartSeries = pane.Series.FirstOrDefault(Function(s) s.PlotOnSecondaryAxis = moduleData.IsSecondaryAxis)
 				If dashboardSeries IsNot Nothing Then
 					Dim chartSeries As Series = chartContext.GetControlSeries(dashboardSeries).FirstOrDefault()
-					Dim chartAxis = TryCast(chartSeries.View, XYDiagramSeriesViewBase)?.AxisY
+					Dim chartAxis = (TryCast(chartSeries.View, XYDiagramSeriesViewBase))?.AxisY
 					If chartAxis IsNot Nothing Then
 						Dim line As New ConstantLine() With {.AxisValue = moduleData.Value}
 						chartAxis.ConstantLines.Clear()

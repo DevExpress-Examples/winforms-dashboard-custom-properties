@@ -69,17 +69,16 @@ namespace WindowsFormsAppCustomProperties {
             Dictionary<string, XRControl> controls = e.GetPrintableControls();
             foreach(var control in controls) {
                 XRChart xrChart = control.Value as XRChart;
-                if(xrChart != null) {
-                    string itemComponentName = control.Key;
-                    ChartDashboardItem chart = designer.Dashboard.Items[itemComponentName] as ChartDashboardItem;
+                string itemComponentName = control.Key;
+                if(xrChart != null && designer.Dashboard.Items[itemComponentName] is ChartDashboardItem chartDashboardItem) {
                     ChartContext chartContext = e.GetChartContext(itemComponentName);
-                    UpdateChart(chart, chartContext);
+                    UpdateChart(chartDashboardItem, chartContext);
                 }
             }
         }
         void Designer_DashboardItemControlUpdated(object sender, DashboardItemControlEventArgs e) {
-            if(e.ChartControl != null)
-                UpdateChart(designer.Dashboard.Items[e.DashboardItemName] as ChartDashboardItem, e.ChartContext);
+            if(e.ChartControl != null && designer.Dashboard.Items[e.DashboardItemName] is ChartDashboardItem chartDashboardItem)
+                UpdateChart(chartDashboardItem, e.ChartContext);
         }
         void UpdateChart(ChartDashboardItem chartDashboardItem, ChartContext chartContext) {
             var moduleData = GetDataFromString(chartDashboardItem.CustomProperties.GetValue(PropertyName));

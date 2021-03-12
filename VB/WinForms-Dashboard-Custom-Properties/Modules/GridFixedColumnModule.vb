@@ -17,7 +17,7 @@ Namespace WindowsFormsAppCustomProperties
 
 		Public Sub New(ByVal designer As DashboardDesigner, Optional ByVal barImage As SvgImage = Nothing)
 			Me.designer = designer
-			Dim ribbon As RibbonControl = CType(designer.MenuManager, RibbonControl)
+			Dim ribbon As RibbonControl = DirectCast(designer.MenuManager, RibbonControl)
 			Dim page As RibbonPage = ribbon.GetDashboardRibbonPage(DashboardBarItemCategory.GridTools, DashboardRibbonPage.Design)
 			Dim group As RibbonPageGroup = page.GetGroupByName("Custom Properties")
 			If group Is Nothing Then

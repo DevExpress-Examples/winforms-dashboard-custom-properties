@@ -52,7 +52,8 @@ namespace WindowsFormsAppCustomProperties {
             UpdateBarItem();
         }
         void UpdateBarItem() {
-            barItem.Checked = Convert.ToBoolean(designer.SelectedDashboardItem.CustomProperties.GetValue(PropertyName));
+            if (designer.SelectedDashboardItem != null)
+                barItem.Checked = Convert.ToBoolean(designer.SelectedDashboardItem.CustomProperties.GetValue(PropertyName));
         }
         void Designer_CustomExport(object sender, CustomExportEventArgs e) {
             Dictionary<string, XRControl> controls = e.GetPrintableControls();
@@ -69,9 +70,10 @@ namespace WindowsFormsAppCustomProperties {
                 UpdateChartScaleBreaks(designer.Dashboard.Items[e.DashboardItemName], e.ChartControl.Diagram);
         }
         void UpdateChartScaleBreaks(DashboardItem dashboardItem, Diagram chartDiagram) {
-            if(chartDiagram != null) {
+            if (chartDiagram is XYDiagram diagram)
+            {
                 bool scaleBreakEnabled = Convert.ToBoolean(dashboardItem.CustomProperties.GetValue(PropertyName));
-                ((XYDiagram)chartDiagram).SecondaryAxesY[0].AutoScaleBreaks.Enabled = scaleBreakEnabled;
+                diagram.SecondaryAxesY[0].AutoScaleBreaks.Enabled = scaleBreakEnabled;
             }
         }
     }

@@ -16,7 +16,7 @@ Namespace WindowsFormsAppCustomProperties
 
 		Public Sub New(ByVal designer As DashboardDesigner, Optional ByVal barImage As SvgImage = Nothing)
 			Me.designer = designer
-			Dim ribbon As RibbonControl = CType(designer.MenuManager, RibbonControl)
+			Dim ribbon As RibbonControl = DirectCast(designer.MenuManager, RibbonControl)
 			Dim page As RibbonPage = ribbon.GetDashboardRibbonPage(DashboardBarItemCategory.ChartTools, DashboardRibbonPage.Design)
 			Dim group As RibbonPageGroup = page.GetGroupByName("Custom Properties")
 			If group Is Nothing Then
@@ -53,7 +53,9 @@ Namespace WindowsFormsAppCustomProperties
 			UpdateBarItem()
 		End Sub
 		Private Sub UpdateBarItem()
-			barItem.Checked = Convert.ToBoolean(designer.SelectedDashboardItem.CustomProperties.GetValue(PropertyName))
+			If designer.SelectedDashboardItem IsNot Nothing Then
+				barItem.Checked = Convert.ToBoolean(designer.SelectedDashboardItem.CustomProperties.GetValue(PropertyName))
+			End If
 		End Sub
 		Private Sub Designer_CustomExport(ByVal sender As Object, ByVal e As CustomExportEventArgs)
 			Dim controls As Dictionary(Of String, XRControl) = e.GetPrintableControls()
@@ -71,9 +73,11 @@ Namespace WindowsFormsAppCustomProperties
 			End If
 		End Sub
 		Private Sub UpdateChartScaleBreaks(ByVal dashboardItem As DashboardItem, ByVal chartDiagram As Diagram)
+			Dim diagram = TryCast(chartDiagram, XYDiagram)
+
 			If chartDiagram IsNot Nothing Then
 				Dim scaleBreakEnabled As Boolean = Convert.ToBoolean(dashboardItem.CustomProperties.GetValue(PropertyName))
-				CType(chartDiagram, XYDiagram).SecondaryAxesY(0).AutoScaleBreaks.Enabled = scaleBreakEnabled
+				diagram.SecondaryAxesY(0).AutoScaleBreaks.Enabled = scaleBreakEnabled
 			End If
 		End Sub
 	End Class
