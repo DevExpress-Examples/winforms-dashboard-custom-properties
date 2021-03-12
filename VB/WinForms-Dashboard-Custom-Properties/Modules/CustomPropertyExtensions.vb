@@ -9,7 +9,7 @@ Namespace WindowsFormsAppCustomProperties
 		Public Function GetValue(Of T As Structure)(ByVal [property] As CustomProperties, ByVal name As String) As T
 			Dim value = [property].GetValue(name)
 			If value Is Nothing Then
-				Return Nothing
+				Return CType(Nothing, T)
 			End If
 			Return DirectCast(Convert.ChangeType(value, GetType(T)), T)
 		End Function

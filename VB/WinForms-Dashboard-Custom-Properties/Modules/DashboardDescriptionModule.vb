@@ -20,7 +20,7 @@ Namespace LayoutChange.Modules
 		Public Sub New(ByVal designer As DashboardDesigner, Optional ByVal barImage As SvgImage = Nothing, Optional ByVal titleDescriptionImage As SvgImage = Nothing)
 			Me.designer = designer
 			Me.titleDescriptionImage = titleDescriptionImage
-			Dim ribbon As RibbonControl = DirectCast(designer.MenuManager, RibbonControl)
+			Dim ribbon As RibbonControl = CType(designer.MenuManager, RibbonControl)
 			Dim page As RibbonPage = ribbon.GetDashboardRibbonPage(DashboardBarItemCategory.None, DashboardRibbonPage.Home)
 			Dim group As RibbonPageGroup = page.Groups.GetGroupByText(DashboardWinLocalizer.GetString(DashboardWinStringId.RibbonPageDashboardCaption))
 			Dim barItem As BarButtonItem = CreateBarItem("Dashboard Description", barImage)
@@ -77,7 +77,7 @@ Namespace LayoutChange.Modules
 		Private Sub Designer_CustomizeDashboardTitle(ByVal sender As Object, ByVal e As CustomizeDashboardTitleEventArgs)
 			Dim text As String = designer.Dashboard.CustomProperties.GetValue(PropertyName)
 			If Not String.IsNullOrEmpty(text) Then
-				Dim showDataItem As DashboardToolbarItem = New DashboardToolbarItem("Description", New Action(Of DashboardToolbarItemClickEventArgs)(Sub(args)
+				Dim showDataItem As New DashboardToolbarItem("Description", New Action(Of DashboardToolbarItemClickEventArgs)(Sub(args)
 					MessageBox.Show(text, "Description")
 				End Sub))
 				showDataItem.SvgImage = titleDescriptionImage

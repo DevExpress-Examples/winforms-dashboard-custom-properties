@@ -24,7 +24,8 @@
 		''' </summary>
 		Private Sub InitializeComponent()
 			Me.components = New System.ComponentModel.Container()
-			Dim resources As New System.ComponentModel.ComponentResourceManager(GetType(Form1))
+'INSTANT VB NOTE: The variable resources was renamed since it may cause conflicts with calls to static members of the user-defined type with this name:
+			Dim resources_Conflict As New System.ComponentModel.ComponentResourceManager(GetType(Form1))
 			Me.dashboardDesigner1 = New DevExpress.DashboardWin.DashboardDesigner()
 			Me.svgImageCollection1 = New DevExpress.Utils.SvgImageCollection(Me.components)
 			CType(Me.dashboardDesigner1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -45,10 +46,10 @@
 			' 
 			Me.svgImageCollection1.Add("alignverticalleft", "image://svgimages/align/alignverticalleft.svg")
 			Me.svgImageCollection1.Add("changechartseriestype", "image://svgimages/dashboards/changechartseriestype.svg")
-			Me.svgImageCollection1.Add("info", (CType(resources.GetObject("svgImageCollection1.info"), DevExpress.Utils.Svg.SvgImage)))
-			Me.svgImageCollection1.Add("State_Validation_Information", (CType(resources.GetObject("svgImageCollection1.State_Validation_Information"), DevExpress.Utils.Svg.SvgImage)))
+			Me.svgImageCollection1.Add("info", (CType(resources_Conflict.GetObject("svgImageCollection1.info"), DevExpress.Utils.Svg.SvgImage)))
+			Me.svgImageCollection1.Add("State_Validation_Information", (CType(resources_Conflict.GetObject("svgImageCollection1.State_Validation_Information"), DevExpress.Utils.Svg.SvgImage)))
 			Me.svgImageCollection1.Add("charttype_rangearea", "image://svgimages/chart/charttype_rangearea.svg")
-			Me.svgImageCollection1.Add("Description", (CType(resources.GetObject("svgImageCollection1.Description"), DevExpress.Utils.Svg.SvgImage)))
+			Me.svgImageCollection1.Add("Description", (CType(resources_Conflict.GetObject("svgImageCollection1.Description"), DevExpress.Utils.Svg.SvgImage)))
 			' 
 			' Form1
 			' 
