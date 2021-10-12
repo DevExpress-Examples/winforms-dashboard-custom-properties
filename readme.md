@@ -3,14 +3,16 @@
 [![](https://img.shields.io/badge/Open_in_DevExpress_Support_Center-FF7200?style=flat-square&logo=DevExpress&logoColor=white)](https://supportcenter.devexpress.com/ticket/details/T878899)
 [![](https://img.shields.io/badge/📖_How_to_use_DevExpress_Examples-e9f6fc?style=flat-square)](https://docs.devexpress.com/GeneralInformation/403183)
 <!-- default badges end -->
-*Files to look at*:
+
+# Dashboard for WinForms - Custom Properties
+
+The following example shows how to create [custom properties](http://docs.devexpress.com/Dashboard/401595/designer-and-viewer-applications/winforms-designer/custom-properties) for the WinForms Dashboard. 
+
+## Files to Look At
 
 * [Form1.cs](./CS/WinForms-Dashboard-Custom-Properties/Form1.cs) (VB: [Form1.vb](./VB/WinForms-Dashboard-Custom-Properties/Form1.vb))
 * [Modules](./CS/WinForms-Dashboard-Custom-Properties/Modules/) (VB: [Modules](./VB/WinForms-Dashboard-Custom-Properties/Modules/))
 
-# WinForms Dashboard - Custom Properties
-
-The following example shows how to create [custom properties](http://docs.devexpress.com/Dashboard/401595/designer-and-viewer-applications/winforms-designer/custom-properties) for the WinForms Dashboard. 
 
 ![](img/win-custom-properties.png)
 
